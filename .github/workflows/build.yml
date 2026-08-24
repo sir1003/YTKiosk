@@ -7,6 +7,10 @@ on:
     branches: [ "main", "master" ]
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: macos-13
@@ -22,9 +26,11 @@ jobs:
           git clone --recursive https://github.com/theos/theos.git $HOME/theos
           echo "THEOS=$HOME/theos" >> $GITHUB_ENV
 
-      - name: Setup Theos Patched SDKs (with armv7 support)
+      - name: Setup Theos Patched SDK (Fast Sparse Checkout)
         run: |
-          git clone --depth=1 https://github.com/theos/sdks.git $HOME/theos/sdks
+          git clone --filter=blob:none --sparse https://github.com/theos/sdks.git $HOME/theos/sdks
+          cd $HOME/theos/sdks
+          git sparse-checkout set iPhoneOS14.5.sdk
 
       - name: Build Application & Package IPA
         run: |
