@@ -15,20 +15,19 @@ jobs:
       - name: Install Theos
         run: |
           bash -c "$(curl -fsSL https://raw.githubusercontent.com/theos/theos/master/bin/install-theos)"
-          echo "THEOS=~/theos" >> $GITHUB_ENV
+          echo "THEOS=$HOME/theos" >> $GITHUB_ENV
 
       - name: Download iOS SDK
         run: |
-          git clone --depth=1 --filter=blob:none --sparse https://github.com/theos/sdks.git ~/theos-sdks
-          cd ~/theos-sdks
+          git clone --depth=1 --filter=blob:none --sparse https://github.com/theos/sdks.git $HOME/theos-sdks
+          cd $HOME/theos-sdks
           git sparse-checkout set iPhoneOS9.3.sdk iPhoneOS14.4.sdk iPhoneOS16.5.sdk
-          cp -r iPhoneOS*.sdk ~/theos/sdks/ || true
+          cp -r iPhoneOS*.sdk $HOME/theos/sdks/ || true
 
       - name: Build IPA
         run: |
-          export THEOS=~/theos
-          make clean
-          make package
+          ls -la
+          make package THEOS=$HOME/theos
         
       - name: Upload IPA Artifact
         uses: actions/upload-artifact@v4
