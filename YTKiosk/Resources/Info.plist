@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>en</string>
+    <key>CFBundleExecutable</key>
+    <string>YTKiosk</string>
+    <key>CFBundleIdentifier</key>
+    <string>com.local.ytkiosk</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleName</key>
+    <string>YT Kiosk</string>
+    <key>CFBundleDisplayName</key>
+    <string>YT Kiosk</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0</string>
+    <key>CFBundleVersion</key>
+    <string>1</string>
+    <key>CFBundleSignature</key>
+    <string>????</string>
+    <!-- armv7 = 32-bit, đúng kiến trúc A5 chip trên iPhone 4S -->
+    <key>UIRequiredDeviceCapabilities</key>
+    <array>
+        <string>armv7</string>
+    </array>
+    <key>MinimumOSVersion</key>
+    <string>9.0</string>
+    <key>UISupportedInterfaceOrientations</key>
+    <array>
+        <string>UIInterfaceOrientationPortrait</string>
+        <string>UIInterfaceOrientationLandscapeLeft</string>
+        <string>UIInterfaceOrientationLandscapeRight</string>
+    </array>
+    <key>UIStatusBarHidden</key>
+    <false/>
+    <key>UIViewControllerBasedStatusBarAppearance</key>
+    <false/>
+    <key>UIFileSharingEnabled</key>
+    <false/>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <!-- YouTube dùng HTTPS chuẩn nên không cần exception domain nào,
+             để nguyên ATS mặc định là đủ -->
+        <key>NSAllowsArbitraryLoads</key>
+        <false/>
+    </dict>
+</dict>
+</plist>
