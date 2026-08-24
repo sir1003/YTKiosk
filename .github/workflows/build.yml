@@ -26,6 +26,10 @@ jobs:
           git clone --recursive https://github.com/theos/theos.git $HOME/theos
           echo "THEOS=$HOME/theos" >> $GITHUB_ENV
 
+      - name: Install ldid (Code Signing Tool)
+        run: |
+          brew install ldid
+
       - name: Setup Theos Patched SDK (Fast Sparse Checkout)
         run: |
           rm -rf $HOME/theos/sdks
