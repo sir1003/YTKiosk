@@ -1,5 +1,5 @@
-ARCHS = armv7
-TARGET = iphone:clang:latest:9.0
+ARCHS = armv7 arm64
+TARGET = iphone:clang:14.5:9.0
 
 include $(THEOS)/makefiles/common.mk
 
@@ -16,7 +16,7 @@ after-all::
 	@echo "==> Đang đóng gói IPA..."
 	rm -rf ./Payload
 	mkdir -p ./Payload
-	cp -r $(THEOS_OBJ_DIR)/YTKiosk.app ./Payload/ 2>/dev/null || cp -r .theos/obj/debug/armv7/YTKiosk.app ./Payload/ 2>/dev/null || cp -r .theos/obj/debug/YTKiosk.app ./Payload/ 2>/dev/null || cp -r .theos/obj/YTKiosk.app ./Payload/ 2>/dev/null || true
+	find .theos -type d -name "YTKiosk.app" -exec cp -r {} ./Payload/ \; 2>/dev/null || cp -r $(THEOS_OBJ_DIR)/YTKiosk.app ./Payload/ 2>/dev/null || true
 	rm -f YTKiosk.ipa
 	zip -r YTKiosk.ipa Payload
 	rm -rf ./Payload
