@@ -57,14 +57,4 @@ YTKiosk/
   "chỉ có 1 app" — Control Center và Notification Center **không bị ảnh hưởng** vì
   đây không phải Guided Access, chỉ là ẩn icon ở tầng SpringBoard.
 
-## Giới hạn đã biết
 
-- Whitelist domain trong `KioskViewController.m` (`AllowedNavigationDomains`) chặn
-  điều hướng ra ngoài YouTube — nếu YouTube đổi domain CDN mới, cần bổ sung thủ công.
-- Danh sách chặn quảng cáo trong `AdBlockDomains.h` là rút gọn thủ công, không phải
-  full EasyList — quảng cáo pre-roll/mid-roll trong video được xử lý bằng CSS ẩn +
-  auto-skip (JS trong `KioskViewController.m`) vì chúng đi chung domain với video thật
-  nên không thể chặn ở tầng network.
-- UIWebView đã bị Apple deprecate hoàn toàn từ 2020, nhưng trên iOS 9.3.6 vẫn hoạt
-  động bình thường và là lựa chọn bắt buộc vì WKWebView không cho NSURLProtocol can
-  thiệp request trên phiên bản iOS này.
