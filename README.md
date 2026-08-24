@@ -1,9 +1,5 @@
 # YT Kiosk — YouTube launcher cho iPhone 4S / iOS 9.3.6 (jailbreak)
 
-Đã review kỹ toàn bộ code: ngoặc cân bằng, logic điều hướng, injection JS, đăng ký
-NSURLProtocol đều đúng thứ tự. Không thể compile thật ở đây vì môi trường này không có
-Xcode/iOS SDK (SDK là tài sản độc quyền của Apple, không public để tải tự do) — bạn cần
-build ở máy có 1 trong 2 công cụ dưới đây.
 
 ## Cấu trúc project
 ```
@@ -20,7 +16,7 @@ YTKiosk/
 └── README.md
 ```
 
-## Cách A — Theos (khuyến nghị, không cần Mac)
+## Cách A — Theos
 
 1. Cài Theos trên Linux hoặc macOS:
    ```bash
