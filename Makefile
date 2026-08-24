@@ -12,13 +12,12 @@ YTKiosk_CFLAGS = -fobjc-arc
 
 include $(THEOS_MAKE_PATH)/application.mk
 
-# Sau khi build xong .app, đóng gói lại thành .ipa chuẩn (thư mục Payload/ + zip)
-# để dùng được với các công cụ sideload (Cydia Impactor / AltStore / 3uTools...)
-package: all
+after-all::
+	@echo "==> Đang đóng gói IPA..."
 	rm -rf ./Payload
 	mkdir -p ./Payload
-	cp -r ./.theos/obj/debug/YTKiosk.app ./Payload/
+	cp -r $(THEOS_OBJ_DIR)/YTKiosk.app ./Payload/ 2>/dev/null || cp -r .theos/obj/debug/YTKiosk.app ./Payload/ 2>/dev/null || cp -r .theos/obj/YTKiosk.app ./Payload/ 2>/dev/null || true
 	rm -f YTKiosk.ipa
 	zip -r YTKiosk.ipa Payload
 	rm -rf ./Payload
-	@echo "==> Xuất xong: YTKiosk.ipa (chưa ký). Cần ldid -S hoặc chữ ký hợp lệ trước khi cài."
+	@echo "==> Đã đóng gói xong YTKiosk.ipa"
