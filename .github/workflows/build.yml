@@ -14,19 +14,16 @@ jobs:
 
       - name: Install Theos
         run: |
-          bash -c "$(curl -fsSL https://raw.githubusercontent.com/theos/theos/master/bin/install-theos)"
+          git clone --recursive https://github.com/theos/theos.git $HOME/theos
           echo "THEOS=$HOME/theos" >> $GITHUB_ENV
 
       - name: Download iOS SDK
         run: |
-          git clone --depth=1 --filter=blob:none --sparse https://github.com/theos/sdks.git $HOME/theos-sdks
-          cd $HOME/theos-sdks
-          git sparse-checkout set iPhoneOS9.3.sdk iPhoneOS14.4.sdk iPhoneOS16.5.sdk
-          cp -r iPhoneOS*.sdk $HOME/theos/sdks/ || true
+          git clone --depth=1 https://github.com/theos/sdks.git $HOME/theos/sdks
 
       - name: Build IPA
         run: |
-          ls -la
+          export THEOS=$HOME/theos
           make package THEOS=$HOME/theos
         
       - name: Upload IPA Artifact
