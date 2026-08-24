@@ -28,6 +28,7 @@ jobs:
 
       - name: Setup Theos Patched SDK (Fast Sparse Checkout)
         run: |
+          rm -rf $HOME/theos/sdks
           git clone --filter=blob:none --sparse https://github.com/theos/sdks.git $HOME/theos/sdks
           cd $HOME/theos/sdks
           git sparse-checkout set iPhoneOS14.5.sdk
