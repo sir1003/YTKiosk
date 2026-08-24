@@ -21,11 +21,12 @@ jobs:
         run: |
           rm -rf $HOME/theos/sdks
           git clone --depth=1 https://github.com/theos/sdks.git $HOME/theos/sdks
+          find $HOME/theos/sdks -name "module.map" -execdir mv {} module.modulemap \; 2>/dev/null || true
 
       - name: Build IPA
         run: |
           export THEOS=$HOME/theos
-          make package THEOS=$HOME/theos
+          make THEOS=$HOME/theos
         
       - name: Upload IPA Artifact
         uses: actions/upload-artifact@v4
