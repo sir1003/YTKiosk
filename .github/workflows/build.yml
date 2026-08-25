@@ -40,7 +40,6 @@ jobs:
       - name: Build Application & Package IPA
         run: |
           export THEOS=$HOME/theos
-          make clean
           make FINALPACKAGE=1
 
       - name: Upload IPA Artifact
