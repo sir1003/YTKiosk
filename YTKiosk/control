@@ -1,9 +1,0 @@
-Package: com.local.ytkiosk
-Name: YT Kiosk
-Version: 1.0
-Architecture: iphoneos-arm
-Description: Trình xem YouTube dạng kiosk, chặn quảng cáo, chỉ hiển thị YouTube.
-Maintainer: Local Build
-Author: Local Build
-Section: Applications
-Depends: firmware (>= 9.0)
