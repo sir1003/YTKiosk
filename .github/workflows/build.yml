@@ -40,10 +40,20 @@ jobs:
       - name: Build Application & Package IPA
         run: |
           export THEOS=$HOME/theos
+          ls -la
+          if [ ! -f "Makefile" ] && [ ! -f "makefile" ]; then
+            MAKE_DIR=$(find . -maxdepth 3 \( -name "Makefile" -o -name "makefile" \) | head -n 1 | xargs -n 1 dirname)
+            if [ -n "$MAKE_DIR" ] && [ "$MAKE_DIR" != "." ]; then
+              echo "Found Makefile in: $MAKE_DIR"
+              cd "$MAKE_DIR"
+            fi
+          fi
           make FINALPACKAGE=1
 
       - name: Upload IPA Artifact
         uses: actions/upload-artifact@v4
         with:
           name: YTKiosk-IPA
-          path: YTKiosk.ipa
+          path: |
+            YTKiosk.ipa
+            **/YTKiosk.ipa
