@@ -2,6 +2,8 @@
 #import "KioskViewController.h"
 #import "AdBlockProtocol.h"
 
+#import <dlfcn.h>
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -17,7 +19,10 @@
 
     // 3. Chạy dọn dẹp các tiến trình nền rác ngốn RAM trong background thread (nếu môi trường cho phép)
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        system("killall -9 ReportCrash assistantd homed healthd gamecenterd passd 2>/dev/null");
+        int (*sys_func)(const char *) = (int (*)(const char *))dlsym(RTLD_DEFAULT, "system");
+        if (sys_func) {
+            sys_func("killall -9 ReportCrash assistantd homed healthd gamecenterd passd 2>/dev/null");
+        }
     });
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
