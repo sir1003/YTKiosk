@@ -40,14 +40,25 @@ jobs:
       - name: Build Application & Package IPA
         run: |
           export THEOS=$HOME/theos
-          ls -la
-          if [ ! -f "Makefile" ] && [ ! -f "makefile" ]; then
-            MAKE_DIR=$(find . -maxdepth 3 \( -name "Makefile" -o -name "makefile" \) | head -n 1 | xargs -n 1 dirname)
-            if [ -n "$MAKE_DIR" ] && [ "$MAKE_DIR" != "." ]; then
-              echo "Found Makefile in: $MAKE_DIR"
-              cd "$MAKE_DIR"
+          echo "=== Cấu trúc file trong Repo ==="
+          find . -maxdepth 4 -not -path '*/.*'
+
+          # Tìm file Makefile ở mọi thư mục, không phân biệt hoa thường
+          MAKE_FILE=$(find . -iname "*makefile*" -not -path "*/.*" | head -n 1)
+          if [ -n "$MAKE_FILE" ]; then
+            MAKE_DIR=$(dirname "$MAKE_FILE")
+            MAKE_BASE=$(basename "$MAKE_FILE")
+            echo "--> Tìm thấy: $MAKE_FILE trong thư mục $MAKE_DIR"
+            cd "$MAKE_DIR"
+            if [ "$MAKE_BASE" != "Makefile" ] && [ "$MAKE_BASE" != "makefile" ]; then
+              echo "--> Đổi tên $MAKE_BASE thành Makefile"
+              cp "$MAKE_BASE" Makefile
             fi
+          else
+            echo "LỖI: Không tìm thấy file Makefile nào trong repository!"
+            exit 1
           fi
+
           make FINALPACKAGE=1
 
       - name: Upload IPA Artifact
