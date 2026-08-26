@@ -12,6 +12,8 @@
     NSURLCache *lightCache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024
                                                            diskCapacity:16 * 1024 * 1024
                                                                diskPath:nil];
+    [NSURLCache setSharedURLCache:lightCache];
+
     // 2. Bật chấp nhận và lưu trữ Cookie để YouTube nhớ lịch sử xem và đề xuất video
     [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
 
